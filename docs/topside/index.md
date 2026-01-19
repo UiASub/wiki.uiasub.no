@@ -1,6 +1,14 @@
 # Quick start
 
-## Install dependencies to run
+[![Repo](https://img.shields.io/badge/repo-UiASub%2FTopside-1f2937?logo=github)](https://github.com/UiASub/Topside)
+
+First clone the repo
+
+```bash
+git clone https://github.com/UiASub/Topside
+```
+
+then install dependencies
 
 ```bash
 pip install -r requirements.txt

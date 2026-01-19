@@ -45,7 +45,16 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: uiasub
+      repo: wiki.uiasub.no
 
 plugins:
   - search
   - awesome-pages
+
+# Repository
+repo_name: uiasub/wiki.uiasub.no
+repo_url: https://github.com/uiasub/wiki.uiasub.no

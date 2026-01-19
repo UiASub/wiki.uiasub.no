@@ -1,5 +1,7 @@
+# .pages controls navigation, ordering and titles. 
 nav:
   - Home: index.md
   - Website: website
   - K2 Zephyr: k2zephyr
   - Topside: topside
+# - UiA Sub: uiasub (Example...)

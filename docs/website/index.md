@@ -1,5 +1,7 @@
 # UiASub Website Documentation
 
+[![Repo](https://img.shields.io/badge/repo-UiASub%2Fuiasub.github.io-1f2937?logo=github)](https://github.com/UiASub/uiasub.github.io)
+
 Welcome to the **UiASub** website documentation wiki! This comprehensive guide covers everything you need to know about developing, maintaining, and contributing to the UiASub website.
 
 ## About UiASub

@@ -1,10 +1,16 @@
 # K2-Zephyr quick start
 
+[![Repo](https://img.shields.io/badge/repo-UiASub%2FK2--Zephyr-1f2937?logo=github)](https://github.com/UiASub/K2-Zephyr)
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/UiASub/K2-Zephyr/.github%2Fworkflows%2Fmain.yml)
+
 Board docs: <https://docs.zephyrproject.org/4.2.0/boards/st/nucleo_f767zi/doc/index.html>
+
+## Required verisons
 
 - **west**: 1.5.0
 - **Zephyr SDK**: 0.17.2
-- **Zephyr project**: v4.2.0
+- **Zephyr project**: v4.2.0 ([EOL 2026-03-20](https://docs.zephyrproject.org/latest/releases/index.html#supported-releases))
 - **Python**: 3.12
 
 ## Installation guide
@@ -18,6 +24,8 @@ If you have installed Zephyr you can clone the K2 Zephyr repo into the `zephyrpr
 ```bash
 git clone https://github.com/UiASub/K2-Zephyr.git
 ```
+
+Remember to follow the [requred versions](#required-verisons)
 
 ## Build & flash
 

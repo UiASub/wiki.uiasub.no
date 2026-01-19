@@ -1,6 +1,6 @@
 # Installation Guides
 
-In-depht installation guide: [docs.zephyrproject](https://docs.zephyrproject.org/4.2.0/develop/getting_started/index.htm)
+In-depht installation guide: [docs.zephyrproject](https://docs.zephyrproject.org/4.2.0/develop/getting_started/index.html)
 
 Board docs: [nucleo_f767zi](https://docs.zephyrproject.org/4.2.0/boards/st/nucleo_f767zi/doc/index.html)
 
