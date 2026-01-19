@@ -1,0 +1,5 @@
+title: Guide
+nav:
+  - quick-start.md
+  - development-workflow.md
+  - contributing.md
