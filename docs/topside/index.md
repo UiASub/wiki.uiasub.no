@@ -1,4 +1,4 @@
-# Quick start
+# Topside quick start
 
 [![Repo](https://img.shields.io/badge/repo-UiASub%2FTopside-1f2937?logo=github)](https://github.com/UiASub/Topside)
 

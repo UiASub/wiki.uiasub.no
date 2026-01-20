@@ -31,37 +31,33 @@ Remember to follow the [requred versions](#required-verisons)
 
 Run the build helper for your platform or run `west` directly from the project folder.
 
-- macOS / Linux / WSL / Git Bash:
+=== "macOS / Linux / WSL / Git Bash"
 
-```bash
-./build.sh
-```
+    ```bash
+    ./build.sh
+    ```
+    or manually inside the repo
 
-or manually inside the repo
+    ```bash
+    cd ~/zephyrproject/K2-Zephyr
+    source ./.venv/Scipts/activate
+    west build -b nucleo_f767zi
+    west flash
+    ```
 
-```bash
-cd ~/zephyrproject/K2-Zephyr
-west build -b nucleo_f767zi
-west flash
-```
+=== "Windows (PowerShell)"
 
-- Windows (PowerShell):
+    ```powershell
+    ./build.ps1
+    ```
+    or manually inside PowerShell
 
-Use the included `build.ps1` which performs the equivalent steps in PowerShell. Run from the repository root in PowerShell:
-
-```powershell
-./build.ps1
-```
-
-or manually inside PowerShell
-
-```powershell
-Set-Location "$HOME\zephyrproject\K2-Zephyr"
-# activate venv if needed
-. .\.venv\Scripts\Activate.ps1
-west build -b nucleo_f767zi
-west flash
-```
+    ```powershell
+    Set-Location "$HOME\zephyrproject\K2-Zephyr"
+    . .\.venv\Scripts\Activate.ps1
+    west build -b nucleo_f767zi
+    west flash
+    ```
 
 If you prefer a Unix shell on Windows, run `build.sh` from WSL, Git Bash, or MSYS2.
 

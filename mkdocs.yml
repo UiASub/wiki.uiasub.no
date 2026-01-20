@@ -13,21 +13,19 @@ theme:
     - navigation.instant.progress
     - navigation.tabs
     - content.code.copy
-
+    - content.tabs.link
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
       toggle:
         icon: material/brightness-auto
         name: Switch to light mode
-
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default 
       toggle: 
         icon: material/brightness-7
         name: Switch to dark mode
-
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
@@ -36,8 +34,24 @@ theme:
         name: Switch to system preference
 
 use_directory_urls: true
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/uiasub
+    - icon: fontawesome/brands/github
+      link: https://github.com/uiasub/
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/uiasub
+    - icon: fontawesome/brands/facebook
+      link: https://www.facebook.com/uiasub
 
 markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -50,10 +64,14 @@ markdown_extensions:
       repo_url_shorthand: true
       user: uiasub
       repo: wiki.uiasub.no
+  - toc:
+      permalink: true
 
 plugins:
   - search
   - awesome-pages
+
+copyright: Copyright &copy; 2024 - 2026 UiASub
 
 # Repository
 repo_name: uiasub/wiki.uiasub.no
