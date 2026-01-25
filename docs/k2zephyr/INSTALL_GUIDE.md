@@ -25,16 +25,16 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
     - [Link to Google Drive (Mac ARM)](https://drive.google.com/file/d/11nO2IN7f9W3DILxbm-kzJPqZ-DBtqBp6/view?usp=sharing)
     - [Link to Google Drive (Linux)](https://drive.google.com/file/d/16ib_3ireqtPRqj8dPD3Ov2iI5E9pKscz/view?usp=sharing)
 
-=== "Windows in CMD or Powershell (Admin)"
+=== "Windows in Powershell (Admin)"
 
     Install script using `powershell`
 
     You will need [winget](https://aka.ms/getwinget) to install dependencies.
 
     ```bash
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-WebRequest https://raw.githubusercontent.com/UiASub/K2-Zephyr/main/install_zephyr.ps1 -OutFile install_zephyr.ps1"
+    Invoke-WebRequest https://raw.githubusercontent.com/UiASub/K2-Zephyr/main/install_zephyr.ps1 -OutFile install_zephyr.ps1
     # Use script:
-    powershell -ExecutionPolicy Bypass -File install_zephyr.ps1
+    Set-ExecutionPolicy -ExecutionPolicy Bypass -File install_zephyr.ps1
     ```
 
     Default install path is ***$HOME\zephyrproject***
