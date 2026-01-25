@@ -8,10 +8,12 @@ Board docs: <https://docs.zephyrproject.org/4.2.0/boards/st/nucleo_f767zi/doc/in
 
 ## Required verisons
 
-- **west**: 1.5.0
-- **Zephyr SDK**: 0.17.2
 - **Zephyr project**: v4.2.0 ([EOL 2026-03-20](https://docs.zephyrproject.org/latest/releases/index.html#supported-releases))
-- **Python**: 3.12
+- **Zephyr SDK**: 0.17.2
+
+### Recommended version
+
+- **Python**: 3.11
 
 ## Installation guide
 
@@ -61,7 +63,29 @@ Run the build helper for your platform or run `west` directly from the project f
 
 If you prefer a Unix shell on Windows, run `build.sh` from WSL, Git Bash, or MSYS2.
 
-> **Note**: `west flash` uses STM32CubeProgrammer by default when it is available on your PATH (it's not used unless installed and found). Linux users can install it manually or use OpenOCD fallback.
+> **Note**: `west flash` uses STM32CubeProgrammer by default when it is available on your PATH (it's not used unless installed and found). It can be installed manually or use OpenOCD fallback.
+
+### Monitoring
+
+Monitor serial (115200 baud):
+
+Linux:
+
+```bash
+minicom -D /dev/ttyACM0 -b 115200
+```
+
+macOS:
+
+```zsh
+minicom -D /dev/tty.usbmodem* -b 115200
+```
+
+or use screen:
+
+```bash
+screen /dev/ttyXXXX 115200
+```
 
 ## vscode config
 

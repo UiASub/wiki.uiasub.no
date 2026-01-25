@@ -20,6 +20,11 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
 
     use `./install_zephyr.sh -h` to see help
 
+    **STM32CubeProgrammer (Recommended)**:
+
+    - [Link to Google Drive (Mac ARM)](https://drive.google.com/file/d/11nO2IN7f9W3DILxbm-kzJPqZ-DBtqBp6/view?usp=sharing)
+    - [Link to Google Drive (Linux)](https://drive.google.com/file/d/16ib_3ireqtPRqj8dPD3Ov2iI5E9pKscz/view?usp=sharing)
+
 === "Windows in CMD or Powershell (Admin)"
 
     Install script using `powershell`
@@ -33,13 +38,8 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
     ```
 
     Default install path is ***$HOME\zephyrproject***
-    > Edit default *Zephyr Path* with `-ZephyrPath`
-    Example:
 
-    ```powershell
-    # Use script:
-    powershell -ExecutionPolicy Bypass -File install_zephyr.ps1 -ZephyrPath "C:\Users\you\zephyrproject"
-    ```
+    **STM32CubeProgrammer (Recommended)**: [Link to Google Drive](https://drive.google.com/file/d/1ai2I9cvzhFkJDBc0utbkcGCS4YYhm4aA/view?usp=sharing)
 
 ## Manual Installation
 
@@ -49,8 +49,10 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
     then run this in ps or cmd:
 
     ```bash
-    winget install Kitware.CMake Ninja-build.Ninja oss-winget.gperf Python.Python.3.12 Git.Git oss-winget.dtc wget 7zip.7zip STMicroelectronics.STM32CubeProgrammer
+    winget install Kitware.CMake Ninja-build.Ninja oss-winget.gperf Python.Python.3.11 Git.Git oss-winget.dtc wget 7zip.7zip
     ```
+
+    **STM32CubeProgrammer (Recommended)**: [Link to Google Drive](https://drive.google.com/file/d/1ai2I9cvzhFkJDBc0utbkcGCS4YYhm4aA/view?usp=sharing)
 
     >You may need to add the 7zip and STM32CubeProgrammer installation folders to your PATH.
 
@@ -62,14 +64,26 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
     cd $Env:HOMEPATH
     python -m venv zephyrproject\.venv
     zephyrproject\.venv\Scripts\Activate.ps1
-    pip install west==1.5.0
-    west init zephyrproject
+    pip install west
+    west init --mr v4.2.0 zephyrproject
     cd zephyrproject
     west update
     west zephyr-export
     west packages pip --install
     cd $Env:HOMEPATH\zephyrproject\zephyr
-    west sdk install --version 0.17.2
+    west sdk install --toolchains arm-zephyr-eabi
+    ```
+
+    ### Clone and Build K2-Zephyr (Windows)
+
+    After completing the Zephyr setup:
+
+    ```bash
+    cd $Env:HOMEPATH\zephyrproject
+    git clone https://github.com/UiASub/K2-Zephyr.git
+    west config --local build.board nucleo_f767zi
+    cd K2-Zephyr
+    west build -p always
     ```
 
 === "Ubuntu"
@@ -78,11 +92,11 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
 
     ```bash
     sudo apt install --no-install-recommends git cmake ninja-build gperf \
-      ccache dfu-util device-tree-compiler wget python3.12 python3.12-dev python3.12-venv python3-tk \
-      xz-utils file make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 openocd
+    ccache dfu-util device-tree-compiler wget python3-dev python3-venv python3-tk \
+    xz-utils file make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1 openocd
     ```
 
-    > **Note**: Linux users can install STM32CubeProgrammer manually from [STMicroelectronics](https://www.st.com/en/development-tools/stm32cubeprog.html) for faster flashing. OpenOCD (installed above) works as an alternative.
+    [Link to Google Drive (Linux)](https://drive.google.com/file/d/16ib_3ireqtPRqj8dPD3Ov2iI5E9pKscz/view?usp=sharing)
 
     verify:
 
@@ -92,36 +106,50 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
     dtc --version
     ```
 
+    > Note: Python above version 3.12 may not work, recommended version is therefore 3.11
+
     ### Get Zephyr and install Python dependencies in Ubuntu
 
     Using `pip` on *Linux*:
 
     ```bash
-    python3.12 -m venv ~/zephyrproject/.venv
+    python3.11 -m venv ~/zephyrproject/.venv
     source ~/zephyrproject/.venv/bin/activate
-    pip install west==1.5.0
-    west init ~/zephyrproject
+    pip install west
+    west init --mr v4.2.0 ~/zephyrproject
     cd ~/zephyrproject
     west update
     west zephyr-export
     west packages pip --install
     cd ~/zephyrproject/zephyr
-    west sdk install --version 0.17.2
+    west sdk install --toolchains arm-zephyr-eabi
     ```
 
     Or using `uv`:
 
     ```bash
     cd ~/zephyrproject
-    uv venv --python 3.12
+    uv venv --python 3.11
     source .venv/bin/activate
-    uv pip install west==1.5.0
-    west init ~/zephyrproject
+    uv pip install west
+    west init --mr v4.2.0 ~/zephyrproject
     west update
     west zephyr-export
     west packages pip --install
     cd ~/zephyrproject/zephyr
-    west sdk install --version 0.17.2
+    west sdk install --toolchains arm-zephyr-eabi
+    ```
+
+    ### Clone and Build K2-Zephyr
+
+    After completing the Zephyr setup:
+
+    ```bash
+    cd ~/zephyrproject
+    git clone https://github.com/UiASub/K2-Zephyr.git
+    west config --local build.board nucleo_f767zi
+    cd K2-Zephyr
+    west build -p always
     ```
 
 === "MacOS"
@@ -129,47 +157,59 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
     **MacOS**: Use [Homebrew](https://brew.sh/)
 
     ```bash
-    brew install cmake ninja gperf python@3.12 ccache qemu dtc libmagic wget
-    brew install --cask stm32cubeprogrammer
+    brew install cmake ninja gperf python@3.11 ccache qemu dtc libmagic wget
     ```
+    **STM32CubeProgrammer (Recommended)**: [Link to Google Drive (Mac ARM)](https://drive.google.com/file/d/11nO2IN7f9W3DILxbm-kzJPqZ-DBtqBp6/view?usp=sharing)
 
     ### Get Zephyr and install Python dependencies in Mac
 
     Using `pip` on *MacOS*:
 
     ```bash
-    python3.12 -m venv ~/zephyrproject/.venv
+    python3.11 -m venv ~/zephyrproject/.venv
     source ~/zephyrproject/.venv/bin/activate
-    pip install west==1.5.0
-    west init ~/zephyrproject
+    pip install west
+    west init --mr v4.2.0 ~/zephyrproject
     cd ~/zephyrproject
     west update
     west zephyr-export
     west packages pip --install
     cd ~/zephyrproject/zephyr
-    west sdk install --version 0.17.2
+    west sdk install --toolchains arm-zephyr-eabi
     ```
 
     Or using `uv`:
 
     ```bash
     cd ~/zephyrproject
-    uv venv --python 3.12
+    uv venv --python 3.11
     source .venv/bin/activate
-    uv pip install west==1.5.0
-    west init ~/zephyrproject
+    uv pip install west
+    west init --mr v4.2.0 ~/zephyrproject
     west update
     west zephyr-export
     west packages pip --install
     cd ~/zephyrproject/zephyr
-    west sdk install --version 0.17.2
+    west sdk install --toolchains arm-zephyr-eabi
+    ```
+
+    ### Clone and Build K2-Zephyr
+
+    After completing the Zephyr setup:
+
+    ```bash
+    cd ~/zephyrproject
+    git clone https://github.com/UiASub/K2-Zephyr.git
+    west config --local build.board nucleo_f767zi
+    cd K2-Zephyr
+    west build -p always
     ```
 
 ## STM32CubeProgrammer PATH (if installed from ST website)
 
-If you install STM32CubeProgrammer from [ST's website](https://www.st.com/en/development-tools/stm32cubeprog.html), the installer may not add the CLI tools to your PATH.
+If you installed **STM32CubeProgrammer** from [Google Drive](https://drive.google.com/drive/folders/1I40xX4mAa_ap31lCJgeUE9_iX3Eq2wwn?usp=sharing) or [ST's website](https://www.st.com/en/development-tools/stm32cubeprog.html), the installer may not add the CLI tools to your PATH.
 
-If `west flash` doesn't find STM32CubeProgrammer, you can add it manually.
+If `west flash` doesn't find STM32CubeProgrammer, you can add it manually:
 
 ### Windows (example)
 
@@ -219,15 +259,4 @@ To explicitly use OpenOCD:
 
 ```bash
 west flash --runner openocd
-```
-
-Monitor serial (115200 baud):
-
-```bash
-# Linux
-minicom -D /dev/ttyACM0 -b 115200
-# macOS
-minicom -D /dev/tty.usbmodem* -b 115200
-# or use screen
-screen /dev/tty.usbmodem* 115200
 ```
