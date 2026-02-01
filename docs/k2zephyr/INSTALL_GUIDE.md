@@ -25,6 +25,14 @@ If you have [STM32CubeProgrammer PATH problems](#stm32cubeprogrammer-path-if-ins
     - [Link to Google Drive (Mac ARM)](https://drive.google.com/file/d/11nO2IN7f9W3DILxbm-kzJPqZ-DBtqBp6/view?usp=sharing)
     - [Link to Google Drive (Linux)](https://drive.google.com/file/d/16ib_3ireqtPRqj8dPD3Ov2iI5E9pKscz/view?usp=sharing)
 
+    then make the usb writeable (Linux only):
+
+    ```bash
+    sudo cp $HOME/STMicroelectronics/STM32Cube/STM32CubeProgrammer/Drivers/rules/* /etc/udev/rules.d && \
+    sudo udevadm control --reload-rules && \
+    sudo udevadm trigger
+    ```
+
 === "Windows in Powershell (Admin)"
 
     Install script using `powershell`
