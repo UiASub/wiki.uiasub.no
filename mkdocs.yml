@@ -12,9 +12,12 @@ theme:
   features:
     - navigation.instant
     - navigation.instant.progress
+    - navigation.top
     - navigation.tabs
     - content.code.copy
     - content.tabs.link
+    - search.highlight
+    - search.suggest
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -71,6 +74,9 @@ markdown_extensions:
 plugins:
   - search
   - awesome-pages
+
+extra_css:
+  - stylesheets/extra.css
 
 copyright: Copyright &copy; 2024 - 2026 UiASub
 
