@@ -583,4 +583,4 @@ Before pushing:
 
 ---
 
-[← Contributing](Contributing) | [Back to Home](Home)
+[← Contributing](../guide/contributing.md) | [Back to Home](../../index.md)

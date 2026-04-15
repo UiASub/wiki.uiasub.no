@@ -458,4 +458,4 @@ Monitor live visitors during:
 
 ---
 
-[← PWA Features](PWA-Features) | [Back to Home](Home)
+[← PWA Features](../pwa-features.md) | [Back to Home](../../index.md)

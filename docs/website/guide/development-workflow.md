@@ -297,7 +297,7 @@ node -e "JSON.parse(require('fs').readFileSync('data/members.json'))"
 
 ### Updating Member Data
 
-See [Member Data Management](Member‐Data‐Management) for detailed guide.
+See [Member Data Management](../reference/member-data-management.md) for detailed guide.
 
 **Quick version**:
 
@@ -455,4 +455,4 @@ git commit -m "Merge main into feature branch"
 
 ---
 
-[← Authentication System](Authentication-System) | [Contributing →](Contributing)
+[← Authentication System](../reference/authentication-system.md) | [Contributing →](contributing.md)

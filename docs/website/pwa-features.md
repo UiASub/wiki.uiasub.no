@@ -480,4 +480,4 @@ location.reload(true)
 
 ---
 
-[← JavaScript & Logic](JavaScript-Logic) | [Analytics →](Analytics)
+[← JavaScript & Logic](javascript-logic.md) | [Analytics →](reference/analytics.md)

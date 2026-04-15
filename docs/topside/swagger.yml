@@ -1,0 +1,880 @@
+swagger: "2.0"
+info:
+  title: Topside ROV API
+  description: >
+    REST API for the Topside ROV control system.
+    Provides endpoints for sensor telemetry, ROV commands, camera status,
+    IMU configuration, PID tuning, and debug controls.
+  version: "1.0.0"
+
+tags:
+  - name: Sensors
+    description: Real-time sensor and telemetry data
+  - name: ROV Command
+    description: Send movement commands to the ROV
+  - name: Camera
+    description: Camera connection status
+  - name: IMU
+    description: IMU configuration and calibration
+  - name: Controller
+    description: Gamepad controller gain settings
+  - name: PID
+    description: PID gain tuning and configuration presets
+  - name: Debug
+    description: Debug axis overrides
+
+paths:
+  # ── Camera ──────────────────────────────────────────────
+  /api/rpi_camera/status:
+    get:
+      tags: [Camera]
+      summary: RPi camera connection status
+      responses:
+        200:
+          description: Camera connection status
+          schema:
+            type: object
+            properties:
+              connected:
+                type: boolean
+                example: true
+
+  /api/ip_camera/status:
+    get:
+      tags: [Camera]
+      summary: IP camera connection status
+      responses:
+        200:
+          description: Camera connection status
+          schema:
+            type: object
+            properties:
+              connected:
+                type: boolean
+                example: true
+
+  # ── Sensors ─────────────────────────────────────────────
+  /api/thrusters:
+    get:
+      tags: [Sensors]
+      summary: Get thruster telemetry data
+      responses:
+        200:
+          description: Current thruster data
+          schema:
+            type: object
+
+  /api/sensors:
+    get:
+      tags: [Sensors]
+      summary: Get IMU sensor data
+      description: Returns yaw, pitch, roll angles, rotation rates, and accelerometer readings.
+      responses:
+        200:
+          description: Current IMU readings
+          schema:
+            type: object
+            properties:
+              yaw:
+                type: number
+                example: 12.5
+              pitch:
+                type: number
+                example: -3.2
+              roll:
+                type: number
+                example: 0.8
+              yr:
+                type: number
+                description: Yaw rate
+                example: 0.1
+              pr:
+                type: number
+                description: Pitch rate
+                example: -0.05
+              rr:
+                type: number
+                description: Roll rate
+                example: 0.0
+              ax:
+                type: number
+                description: Accelerometer X
+                example: 0.02
+              ay:
+                type: number
+                description: Accelerometer Y
+                example: -0.01
+              az:
+                type: number
+                description: Accelerometer Z
+                example: 9.81
+
+  /api/lights:
+    get:
+      tags: [Sensors]
+      summary: Get light status data
+      responses:
+        200:
+          description: Current light levels
+          schema:
+            type: object
+
+  /api/battery:
+    get:
+      tags: [Sensors]
+      summary: Get battery status
+      responses:
+        200:
+          description: Battery percentage
+          schema:
+            type: object
+            properties:
+              battery:
+                type: number
+                description: Battery level percentage
+                example: 85
+
+  /api/depth:
+    get:
+      tags: [Sensors]
+      summary: Get depth data
+      responses:
+        200:
+          description: Current and target depth
+          schema:
+            type: object
+            properties:
+              dpt:
+                type: number
+                description: Current depth
+                example: 2.5
+              dptSet:
+                type: number
+                description: Target depth setpoint
+                example: 3.0
+
+  /api/resources:
+    get:
+      tags: [Sensors]
+      summary: Get MCU resource telemetry
+      description: Returns CPU usage, memory stats, thread count, and UDP counters from the MCU.
+      responses:
+        200:
+          description: MCU resource usage
+          schema:
+            type: object
+            properties:
+              sequence:
+                type: integer
+                example: 1073
+              uptime_ms:
+                type: integer
+                example: 1080133
+              cpu_percent:
+                type: integer
+                example: 48
+              heap_used_percent:
+                type: integer
+                example: 2
+              heap_free_kb:
+                type: integer
+                example: 376
+              heap_total_kb:
+                type: integer
+                example: 384
+              thread_count:
+                type: integer
+                example: 14
+              udp_rx_count:
+                type: integer
+                example: 17301
+              udp_rx_errors:
+                type: integer
+                example: 0
+
+  # ── ROV Command ─────────────────────────────────────────
+  /api/rov/command:
+    post:
+      tags: [ROV Command]
+      summary: Send movement command to the ROV
+      description: >
+        Accepts raw integer values or normalized axes. Both can be sent together.
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              surge:
+                type: integer
+                description: Forward/back (-128 to 127)
+                example: -50
+              sway:
+                type: integer
+                description: Left/right (-128 to 127)
+                example: 25
+              heave:
+                type: integer
+                description: Up/down (-128 to 127)
+                example: 75
+              roll:
+                type: integer
+                description: Roll (-128 to 127)
+                example: 0
+              pitch:
+                type: integer
+                description: Pitch (-128 to 127)
+                example: 10
+              yaw:
+                type: integer
+                description: Yaw (-128 to 127)
+                example: -30
+              light:
+                type: integer
+                description: Light intensity (0 to 255)
+                example: 200
+              manip:
+                type: integer
+                description: Manipulator arm (-128 to 127)
+                example: 40
+              axes:
+                type: object
+                description: Normalized axes (-1.0 to 1.0)
+                properties:
+                  surge:
+                    type: number
+                    example: -0.5
+                  sway:
+                    type: number
+                    example: 0.25
+                  heave:
+                    type: number
+                    example: 0.75
+                  roll:
+                    type: number
+                    example: 0.0
+                  pitch:
+                    type: number
+                    example: 0.1
+                  yaw:
+                    type: number
+                    example: -0.3
+                  light:
+                    type: number
+                    example: 0.8
+                  manip:
+                    type: number
+                    example: 0.4
+              rate_hz:
+                type: number
+                description: Optional UDP send rate override
+                example: 20.0
+      responses:
+        200:
+          description: Command accepted
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              now:
+                type: object
+                description: Current command state
+
+  /api/rov/status:
+    get:
+      tags: [ROV Command]
+      summary: Get current ROV command state
+      responses:
+        200:
+          description: Current command values
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              command:
+                type: object
+                description: Current surge/sway/heave/roll/pitch/yaw/light/manip values
+
+  # ── IMU ─────────────────────────────────────────────────
+  /api/imu/status:
+    get:
+      tags: [IMU]
+      summary: Get IMU receiver statistics
+      responses:
+        200:
+          description: IMU receiver stats
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              stats:
+                type: object
+                properties:
+                  packet_count:
+                    type: integer
+                  last_data:
+                    type: object
+                  age_ms:
+                    type: number
+                  tare_offset:
+                    type: object
+
+  /api/imu/tare:
+    post:
+      tags: [IMU]
+      summary: Set current IMU orientation as zero reference (tare)
+      responses:
+        200:
+          description: Tare offset set
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              tare_offset:
+                type: object
+        503:
+          description: IMU receiver not running
+    delete:
+      tags: [IMU]
+      summary: Clear the tare offset
+      responses:
+        200:
+          description: Tare cleared
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+        503:
+          description: IMU receiver not running
+
+  /api/imu/offset:
+    get:
+      tags: [IMU]
+      summary: Get IMU mass center offset (mm)
+      responses:
+        200:
+          description: Current offset values
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              offset:
+                type: object
+                properties:
+                  x:
+                    type: number
+                    example: 120.0
+                  y:
+                    type: number
+                    example: 0.0
+                  z:
+                    type: number
+                    example: -50.0
+    post:
+      tags: [IMU]
+      summary: Set IMU mass center offset (mm)
+      description: Sends updated config to the MCU for centripetal compensation.
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              x:
+                type: number
+                description: X offset in mm
+                example: 120.0
+              y:
+                type: number
+                description: Y offset in mm
+                example: 0.0
+              z:
+                type: number
+                description: Z offset in mm
+                example: -50.0
+      responses:
+        200:
+          description: Offset updated
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              offset:
+                type: object
+                properties:
+                  x:
+                    type: number
+                  y:
+                    type: number
+                  z:
+                    type: number
+
+  /api/imu/axes:
+    get:
+      tags: [IMU]
+      summary: Get IMU axis mapping
+      description: Each ROV axis maps to a sensor output with sign.
+      responses:
+        200:
+          description: Current axis mapping
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              axes:
+                type: object
+                properties:
+                  yaw:
+                    type: string
+                    example: "+yaw"
+                  pitch:
+                    type: string
+                    example: "+pitch"
+                  roll:
+                    type: string
+                    example: "+roll"
+    post:
+      tags: [IMU]
+      summary: Set IMU axis mapping
+      description: Updates both topside display and MCU orientation.
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              yaw:
+                type: string
+                enum: ["+yaw", "-yaw", "+pitch", "-pitch", "+roll", "-roll"]
+                example: "+yaw"
+              pitch:
+                type: string
+                enum: ["+yaw", "-yaw", "+pitch", "-pitch", "+roll", "-roll"]
+                example: "+pitch"
+              roll:
+                type: string
+                enum: ["+yaw", "-yaw", "+pitch", "-pitch", "+roll", "-roll"]
+                example: "+roll"
+      responses:
+        200:
+          description: Axis mapping updated
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              axes:
+                type: object
+
+  /api/imu/accel_axes:
+    get:
+      tags: [IMU]
+      summary: Get accelerometer axis mapping
+      responses:
+        200:
+          description: Current accelerometer axis mapping
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              accel_axes:
+                type: object
+                properties:
+                  x:
+                    type: string
+                    example: "+x"
+                  y:
+                    type: string
+                    example: "+y"
+                  z:
+                    type: string
+                    example: "+z"
+    post:
+      tags: [IMU]
+      summary: Set accelerometer axis mapping
+      description: Updates display and MCU config.
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              x:
+                type: string
+                enum: ["+x", "-x", "+y", "-y", "+z", "-z"]
+                example: "+x"
+              y:
+                type: string
+                enum: ["+x", "-x", "+y", "-y", "+z", "-z"]
+                example: "+y"
+              z:
+                type: string
+                enum: ["+x", "-x", "+y", "-y", "+z", "-z"]
+                example: "+z"
+      responses:
+        200:
+          description: Accelerometer axis mapping updated
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              accel_axes:
+                type: object
+
+  # ── Debug ───────────────────────────────────────────────
+  /api/debug/override:
+    post:
+      tags: [Debug]
+      summary: Set debug override axes
+      description: Overrides physical controller input with the given values.
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              surge:
+                type: number
+                description: Forward/back (-1.0 to 1.0)
+                example: 0.5
+              sway:
+                type: number
+                description: Left/right (-1.0 to 1.0)
+                example: 0.0
+              heave:
+                type: number
+                description: Up/down (-1.0 to 1.0)
+                example: 0.0
+              roll:
+                type: number
+                description: Roll (-1.0 to 1.0)
+                example: 0.0
+              pitch:
+                type: number
+                description: Pitch (-1.0 to 1.0)
+                example: 0.0
+              yaw:
+                type: number
+                description: Yaw (-1.0 to 1.0)
+                example: 0.0
+      responses:
+        200:
+          description: Override applied
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              override:
+                type: object
+        503:
+          description: Controller not available
+
+  /api/debug/clear:
+    post:
+      tags: [Debug]
+      summary: Clear debug override
+      description: Returns control to the physical gamepad.
+      responses:
+        200:
+          description: Override cleared
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+
+  # ── Controller ──────────────────────────────────────────
+  /api/controller/gains:
+    get:
+      tags: [Controller]
+      summary: Get current controller gain settings
+      responses:
+        200:
+          description: Current gains
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              gains:
+                type: object
+                properties:
+                  master:
+                    type: number
+                    example: 1.0
+                  surge:
+                    type: number
+                    example: 1.0
+                  sway:
+                    type: number
+                    example: 1.0
+                  heave:
+                    type: number
+                    example: 1.0
+                  roll:
+                    type: number
+                    example: 1.0
+                  pitch:
+                    type: number
+                    example: 1.0
+                  yaw:
+                    type: number
+                    example: 1.0
+        503:
+          description: Controller not available
+    post:
+      tags: [Controller]
+      summary: Set controller gain values
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              master:
+                type: number
+                description: Master gain (0 to 1)
+                example: 0.8
+              surge:
+                type: number
+                description: Surge gain (0 to 1)
+                example: 0.9
+              sway:
+                type: number
+                example: 1.0
+              heave:
+                type: number
+                example: 1.0
+              roll:
+                type: number
+                example: 1.0
+              pitch:
+                type: number
+                example: 1.0
+              yaw:
+                type: number
+                example: 1.0
+      responses:
+        200:
+          description: Gains updated
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              gains:
+                type: object
+        503:
+          description: Controller not available
+
+  # ── PID ─────────────────────────────────────────────────
+  /api/pid/gains:
+    get:
+      tags: [PID]
+      summary: Request current PID gains from the MCU
+      description: Sends a UDP request to the MCU and waits for a response.
+      responses:
+        200:
+          description: Current PID gains per axis
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              gains:
+                type: object
+                description: "Per-axis PID gains: {axis: {kp, ki, kd}}"
+        504:
+          description: No response from MCU
+    post:
+      tags: [PID]
+      summary: Send PID gains to the MCU
+      description: Sends gains via UDP and retries up to 3 times for confirmation.
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              surge:
+                type: object
+                properties:
+                  kp: {type: number, example: 0.5}
+                  ki: {type: number, example: 0.1}
+                  kd: {type: number, example: 0.2}
+              sway:
+                type: object
+                properties:
+                  kp: {type: number}
+                  ki: {type: number}
+                  kd: {type: number}
+              heave:
+                type: object
+                properties:
+                  kp: {type: number}
+                  ki: {type: number}
+                  kd: {type: number}
+              roll:
+                type: object
+                properties:
+                  kp: {type: number}
+                  ki: {type: number}
+                  kd: {type: number}
+              pitch:
+                type: object
+                properties:
+                  kp: {type: number}
+                  ki: {type: number}
+                  kd: {type: number}
+              yaw:
+                type: object
+                properties:
+                  kp: {type: number}
+                  ki: {type: number}
+                  kd: {type: number}
+      responses:
+        200:
+          description: PID gains confirmed by MCU
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              gains:
+                type: object
+              attempts:
+                type: integer
+                example: 1
+        504:
+          description: No response from MCU after retries
+
+  /api/pid/configs:
+    get:
+      tags: [PID]
+      summary: List saved PID configuration names
+      responses:
+        200:
+          description: List of config names
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              configs:
+                type: array
+                items:
+                  type: string
+                example: ["default", "aggressive", "smooth"]
+    post:
+      tags: [PID]
+      summary: Save PID gains as a named configuration
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required: [name, gains]
+            properties:
+              name:
+                type: string
+                description: Config name (alphanumeric, spaces, hyphens, dots)
+                example: smooth-tuning
+              gains:
+                type: object
+                description: PID gains per axis
+      responses:
+        200:
+          description: Config saved
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              name:
+                type: string
+        400:
+          description: Invalid name or missing gains
+
+  "/api/pid/configs/{name}":
+    get:
+      tags: [PID]
+      summary: Load a saved PID configuration by name
+      parameters:
+        - in: path
+          name: name
+          type: string
+          required: true
+          description: Configuration name
+      responses:
+        200:
+          description: Config loaded
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+              name:
+                type: string
+              gains:
+                type: object
+        404:
+          description: Config not found
+    delete:
+      tags: [PID]
+      summary: Delete a saved PID configuration
+      parameters:
+        - in: path
+          name: name
+          type: string
+          required: true
+          description: Configuration name to delete
+      responses:
+        200:
+          description: Config deleted
+          schema:
+            type: object
+            properties:
+              ok:
+                type: boolean
+                example: true
+        404:
+          description: Config not found

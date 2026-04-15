@@ -403,4 +403,4 @@ Located in `css/waves.css`:
 
 ---
 
-[← Authentication System](Authentication-System) | [JavaScript & Logic →](JavaScript-Logic)
+[← Authentication System](../reference/authentication-system.md) | [JavaScript & Logic →](../javascript-logic.md)

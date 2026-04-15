@@ -75,4 +75,4 @@ Before adding a logo:
 
 ---
 
-[← News & Updates](News-Updates) | [Back to Home](Home)
+[← News & Updates](../news-updates.md) | [Back to Home](../../index.md)

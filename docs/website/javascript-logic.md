@@ -605,4 +605,4 @@ async function fetchData() {
 
 ---
 
-[← Styling & CSS](Styling-CSS) | [PWA Features →](PWA-Features)
+[← Styling & CSS](standards/styling-css.md) | [PWA Features →](pwa-features.md)

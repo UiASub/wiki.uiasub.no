@@ -84,4 +84,4 @@ All data is stored in `data/news.json`.
 
 ---
 
-[← Project Structure](Project-Structure) | [Sponsors Management →](Sponsors-Management)
+[← Project Structure](project-structure.md) | [Sponsors Management →](reference/sponsors-management.md)

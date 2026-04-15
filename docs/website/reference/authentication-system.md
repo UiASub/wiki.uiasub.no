@@ -345,4 +345,4 @@ fetch('https://[project-id].supabase.co/functions/v1/discord-role-sync', {
 
 ---
 
-[← Member Data Management](Member-Data-Management) | [Styling & CSS →](Styling-CSS)
+[← Member Data Management](member-data-management.md) | [Styling & CSS →](../standards/styling-css.md)

@@ -113,10 +113,10 @@ Your changes will be live at [uiasub.github.io](https://uiasub.github.io) within
 
 ## Next Steps
 
-- Read the **[Project Structure](Project‐Structure)** guide
-- Learn about **[Member Data Management](Member‐Data‐Management)**
-- Understand the **[Authentication System](Authentication‐System)** for internal tools
-- Explore **[Styling & CSS](Styling‐CSS)** guidelines
+- Read the **[Project Structure](../project-structure.md)** guide
+- Learn about **[Member Data Management](../reference/member-data-management.md)**
+- Understand the **[Authentication System](../reference/authentication-system.md)** for internal tools
+- Explore **[Styling & CSS](../standards/styling-css.md)** guidelines
 
 ## Troubleshooting
 
@@ -137,4 +137,4 @@ Your changes will be live at [uiasub.github.io](https://uiasub.github.io) within
 
 ---
 
-[← Back to Home](Home) | [Project Structure →](Project-Structure)
+[← Back to Home](../../index.md) | [Project Structure →](../project-structure.md)

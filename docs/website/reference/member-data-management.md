@@ -228,4 +228,4 @@ node -e "JSON.parse(require('fs').readFileSync('data/members.json'))"
 
 ---
 
-[← Project Structure](Project-Structure) | [Authentication System →](Authentication-System)
+[← Project Structure](../project-structure.md) | [Authentication System →](authentication-system.md)

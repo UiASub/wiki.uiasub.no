@@ -44,7 +44,7 @@ python3 -m http.server
 
 ### 3. Make Your Changes
 
-- Follow the [Code Standards](Code‐Standards)
+- Follow the [Code Standards](../standards/code-standards.md)
 - Test your changes thoroughly
 - Ensure both Norwegian and English versions work
 - Check responsive design
@@ -307,7 +307,7 @@ By contributing, you agree that your contributions will be licensed under the sa
 
 ## Questions?
 
-- Check the [Wiki](Home) documentation
+- Check the [Wiki](../../index.md) documentation
 - Search existing GitHub issues
 - Open a new issue with your question
 - Email the team: <uia.submerged@gmail.com>
@@ -318,4 +318,4 @@ Every contribution, no matter how small, helps improve the UiASub website. We ap
 
 ---
 
-[← Development Workflow](Development-Workflow) | [Back to Home](Home)
+[← Development Workflow](development-workflow.md) | [Back to Home](../../index.md)

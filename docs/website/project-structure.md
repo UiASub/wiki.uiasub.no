@@ -172,4 +172,4 @@ The site is a **static website** deployed via GitHub Pages:
 
 ---
 
-[← Quick Start](Quick‐start) | [Member Data Management →](Member-Data-Management)
+[← Quick Start](guide/quick-start.md) | [Member Data Management →](reference/member-data-management.md)
